@@ -22,10 +22,12 @@ public class ResourceListener implements EventListener<ResourceEvent> {
 
     @Override
     public void handleEvent(ResourceEvent data) {
-        RecordId res = resourceServiceClient.downloadFile(data.resourceId())
+        Long resourceId = data.resourceId();
+        RecordId res = resourceServiceClient.downloadFile(resourceId)
                 .map(resourceProcessor::process)
                 .map(Optional::orElseThrow)
-                .map(songServiceClient::createSong)
+                .map(song ->
+                        songServiceClient.createSong(song.setResourceId(resourceId)))
                 .orElse(null);
 
         log.info("song created {}", res);

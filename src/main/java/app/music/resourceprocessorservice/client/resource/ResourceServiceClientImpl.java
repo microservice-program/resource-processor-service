@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ResourceServiceClientImpl extends BaseWebClient implements ResourceServiceClient {
-    private static final String URI = "http://localhost:8080/api/resouerces";
+    private static final String URI = "localhost:8080/api/v1/resources";
     private final WebClient webClient;
 
     @Override
@@ -35,9 +36,9 @@ public class ResourceServiceClientImpl extends BaseWebClient implements Resource
     }
 
     public File fluxToFile(Flux<DataBuffer> input) {
-        Path path = Paths.get("/temp");
-        return DataBufferUtils.write(input, path, StandardOpenOption.CREATE)
-                .thenReturn(path.toFile())
-                .block();
+        Path path = Paths.get("temp");
+        Mono<File> file = DataBufferUtils.write(input, path, StandardOpenOption.CREATE)
+                .thenReturn(path.toFile());
+        return file.block();
     }
 }

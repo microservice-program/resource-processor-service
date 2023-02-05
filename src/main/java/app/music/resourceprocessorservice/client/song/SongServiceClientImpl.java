@@ -11,18 +11,17 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Service
 @RequiredArgsConstructor
 public class SongServiceClientImpl extends BaseWebClient implements SongServiceClient {
-    private static final String URI = "http://localhost:8080/api/songs";
+    private static final String URI = "localhost:8081/api/v1/songs";
     private final WebClient webClient;
 
     @Override
     public RecordId createSong(SongMetadata song) {
-        RecordId res = webClient.post()
+        return webClient.post()
                 .uri(uriBuilder -> uriBuilder.path(URI).build())
                 .accept(MediaType.APPLICATION_JSON)
                 .bodyValue(song)
                 .retrieve()
                 .bodyToMono(RecordId.class)
                 .block();
-        return res;
     }
 }

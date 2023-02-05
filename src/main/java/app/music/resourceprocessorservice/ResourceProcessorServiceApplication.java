@@ -5,12 +5,12 @@ import app.music.resourceprocessorservice.event.resourse.ResourceListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
+@EnableScheduling
 @RequiredArgsConstructor
 public class ResourceProcessorServiceApplication {
 
@@ -20,9 +20,11 @@ public class ResourceProcessorServiceApplication {
         SpringApplication.run(ResourceProcessorServiceApplication.class, args);
     }
 
-    @GetMapping("/api/test/{id}")
-    public void test(@PathVariable Long id) {
-        resourceListener.handleEvent(new ResourceEvent(id));
+
+    @Scheduled(fixedDelay = 10000)
+    public void test() {
+        System.out.println("etre");
+        resourceListener.handleEvent(new ResourceEvent(9L));
     }
 
 
