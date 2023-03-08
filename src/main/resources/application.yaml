@@ -1,0 +1,10 @@
+bootstrap-servers-endpoints: ${KAFKA_BOOTSTRAP_SERVERS_ENDPOINTS:localhost:29092,localhost:39092 ,localhost:9002}
+kafka:
+  bootstrap-servers: ${bootstrap-servers-endpoints}
+  topic:
+    resources: resources
+  consumer:
+    concurrency: 3
+server:
+  port: 8083
+

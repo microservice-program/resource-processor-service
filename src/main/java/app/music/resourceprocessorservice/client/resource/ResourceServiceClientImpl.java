@@ -19,7 +19,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ResourceServiceClientImpl extends BaseWebClient implements ResourceServiceClient {
-    private static final String URI = "localhost:8080/api/v1/resources";
+    private static final String URI = "localhost:8000/api/v1/resources";
     private final WebClient webClient;
 
     @Override
