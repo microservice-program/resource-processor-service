@@ -38,8 +38,8 @@ public class ResourceListener implements EventListener<ResourceEvent> {
                 .orElse(null);
         if (Objects.nonNull(res)) {
             acknowledgment.acknowledge();
+            log.info("song created {}", res);
         }
-        log.info("song created {}", res);
     }
 
 }
