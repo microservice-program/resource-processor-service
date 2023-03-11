@@ -5,6 +5,10 @@ kafka:
     resources: resources
   consumer:
     concurrency: 3
+retry:
+  max:
+    delay: 1000
+    attempts: 3
 server:
   port: 8083
 
